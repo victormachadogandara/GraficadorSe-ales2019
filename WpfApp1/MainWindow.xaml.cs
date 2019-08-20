@@ -20,33 +20,39 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            
-
-
-        }
-
-        private void BtnGraficar_Click(object sender, RoutedEventArgs e)
-        {
-            double amplitud = double.Parse(txtAmplitud.Text);
-            double fase = double.Parse(txtFase.Text);
-            double frecuencia = double.Parse(txtFrecuencia.Text);
-            double tiempoInicial = double.Parse(txtTiempoInicial.Text);
-            double tiempoFinal = double.Parse(txtTiempoFinal.Text);
-            double frecuenciaMuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
-
-            SeñalSenoidal señal = new SeñalSenoidal(amplitud, fase, frecuencia);
-
-            double periodoMuestreo = 1.0 / frecuenciaMuestreo;
-
-            plnGrafica.Points.Clear();
-            for(double i = tiempoInicial; i<= tiempoFinal; i+= periodoMuestreo)
+       
+        
+            public MainWindow()
             {
-                plnGrafica.Points.Add(new Point(i * scrGrafica.Width, -1 * (señal.evaluar(i) * scrGrafica.Height / 2.0)));
+                InitializeComponent();
+
+            }
+
+            private void BtnGraficar_Click(object sender, RoutedEventArgs e)
+            {
+                double amplitud = double.Parse(txtAmplitud.Text);
+                double fase = double.Parse(txtFase.Text);
+                double frecuencia = double.Parse(txtFrecuencia.Text);
+                double tiempoInicial = double.Parse(txtTiempoInicial.Text);
+                double tiempoFinal = double.Parse(txtTiempoFinal.Text);
+                double frecuenciaDeMuestreo = double.Parse(txtFrecuenciaDeMuestreo.Text);
+
+                SeñalSenoidal señal = new SeñalSenoidal(amplitud, fase, frecuencia);
+
+                double periodoMuestreo = 1 / frecuenciaDeMuestreo;
+
+                plnGrafica.Points.Clear();
+                for (double i = tiempoInicial; i <= tiempoFinal; i += periodoMuestreo)
+                {
+                     plnGrafica.Points.Add( adaptarCoordenadas(i, señal.evaluar(i)) );
+                }
+            }
+            public Point adaptarCoordenadas(double x, double y)
+            {
+
+
+
+            return new Point(x * srcGrafica.Width, (-1 * (y * ((srcGrafica.Height / 2.0)-35)) ) + (srcGrafica.Height / 2.0) );
             }
         }
     }
-}
