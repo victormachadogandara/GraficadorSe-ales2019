@@ -42,9 +42,17 @@ namespace WpfApp1
                 double periodoMuestreo = 1 / frecuenciaDeMuestreo;
 
                 plnGrafica.Points.Clear();
-                for (double i = tiempoInicial; i <= tiempoFinal; i += periodoMuestreo)
+                
+                for(double i = tiempoInicial; i <= tiempoFinal; i += periodoMuestreo)
+            
                 {
-                     plnGrafica.Points.Add( adaptarCoordenadas(i, señal.evaluar(i), tiempoInicial) );
+                    Muestra muestra = new Muestra(i, señal.evaluar(i));
+                    señal.Muestras.Add(muestra);
+                }
+            
+                foreach(Muestra muestra in señal.Muestras)
+                {
+                    plnGrafica.Points.Add(adaptarCoordenadas(muestra.X, muestra.Y, tiempoInicial));
                 }
 
                 plnEjeX.Points.Clear();
