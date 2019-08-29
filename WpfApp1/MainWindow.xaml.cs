@@ -37,7 +37,7 @@ namespace WpfApp1
                 double tiempoFinal = double.Parse(txtTiempoFinal.Text);
                 double frecuenciaDeMuestreo = double.Parse(txtFrecuenciaDeMuestreo.Text);
 
-                SeñalSenoidal señal = new SeñalSenoidal(amplitud, fase, frecuencia);
+                SeñalParabolica señal = new SeñalParabolica();
 
                 double periodoMuestreo = 1.0 / frecuenciaDeMuestreo;
 
