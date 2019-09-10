@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace WpfApp1
 {
-    class SeñalParabolica
+    class SeñalParabolica : Señal
     {
-        public List<Muestra> Muestras { get; set; }
+        
 
         public SeñalParabolica()
         {
             Muestras = new List<Muestra>();
+            AmplitudMaxima = 0;
         }
 
-        public double evaluar(double tiempo)
+        override public double evaluar(double tiempo)
         {
             double resultado;
 

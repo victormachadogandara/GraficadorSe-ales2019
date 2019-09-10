@@ -38,6 +38,7 @@
         <ComboBox x:Name="cbTipoSeñal" HorizontalAlignment="Left" Margin="135,23,0,0" VerticalAlignment="Top" Width="172" SelectedIndex="0" SelectionChanged="CbTipoSeñal_SelectionChanged">
             <ComboBoxItem>Señal parabolica</ComboBoxItem>
             <ComboBoxItem>Señal senoidal</ComboBoxItem>
+            <ComboBoxItem>Señal Exponencial</ComboBoxItem>
         </ComboBox>
 
     </Grid>

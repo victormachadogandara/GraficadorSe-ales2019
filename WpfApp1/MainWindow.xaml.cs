@@ -34,28 +34,41 @@ namespace WpfApp1
                     double tiempoInicial = double.Parse(txtTiempoInicial.Text);
                     double tiempoFinal = double.Parse(txtTiempoFinal.Text);
                     double frecuenciaDeMuestreo = double.Parse(txtFrecuenciaDeMuestreo.Text);
+                    
 
                     /*SeñalSenoidal señal = new SeñalSenoidal(amplitud, fase, frecuencia);*/
-              
-                    SeñalParabolica señal = new SeñalParabolica();
 
-                    double periodoMuestreo = 1.0 / frecuenciaDeMuestreo;
+                    Señal señal;
+                    switch(cbTipoSeñal.SelectedIndex)
+                    {
+                        case 0: //Parabolica
+                            señal = new SeñalParabolica();
+                            break;
+                        case 1: //Senoida
+                        double amplitud = double.Parse(((ConfiguracionSeñaSenoidal)(PanelConfiguracion.Children[0])).txtAmplitud.Text);
+                        double fase = double.Parse(((ConfiguracionSeñaSenoidal)(PanelConfiguracion.Children[0])).txtFase.Text);
+                        double frecuencia = double.Parse(((ConfiguracionSeñaSenoidal)(PanelConfiguracion.Children[0])).txtFrecuencia.Text);
+                        señal = new SeñalSenoidal(amplitud,fase, frecuencia);
+                            break;
+                        default:
+                        señal = null;
+                            break;
+                    }
 
-                    double amplitudMaxima = 0.0;
+                    señal.TiempoInicial = tiempoInicial;
+
+                    señal.TiempoFinal = tiempoFinal;
+
+                    señal.FrecuenciaMuestreo = frecuenciaDeMuestreo;
+
+                    señal.construirSeñal();
+    
+                   
+
+                    double amplitudMaxima = señal.AmplitudMaxima;
 
                     plnGrafica.Points.Clear();
                 
-                    for(double i = tiempoInicial; i <= tiempoFinal; i += periodoMuestreo)
-            
-                    {
-                        double valorMuestra = señal.evaluar(i);
-                        if (Math.Abs(valorMuestra) > amplitudMaxima)
-                        {
-                            amplitudMaxima = Math.Abs(valorMuestra);
-                        }
-                        Muestra muestra = new Muestra(i, señal.evaluar(i));
-                        señal.Muestras.Add(muestra);
-                    }
             
                     foreach(Muestra muestra in señal.Muestras)
                     {
@@ -79,7 +92,7 @@ namespace WpfApp1
 
 
 
-                return new Point((x -tiempoInicial) * srcGrafica.Width, (-1 * (y * (( (srcGrafica.Height / 2.0) -35) / amplitudMaxima) )) + (srcGrafica.Height / 2.0) );
+                  return new Point((x -tiempoInicial) * srcGrafica.Width, (-1 * (y * (( (srcGrafica.Height / 2.0) -35) / amplitudMaxima) )) + (srcGrafica.Height / 2.0) );
                 }
 
             private void CbTipoSeñal_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -91,6 +104,9 @@ namespace WpfApp1
                         break;
                     case 1: //Senoidal
                         PanelConfiguracion.Children.Add(new ConfiguracionSeñaSenoidal());
+                        break;
+                    case 2:
+                        PanelConfiguracion.Children.Add(new ConfiguracionExponencial());
                         break;
                     default:
                         break;

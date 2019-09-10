@@ -55,14 +55,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConfiguracionExponencial.xaml.cs">
+      <DependentUpon>ConfiguracionExponencial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConfiguracionSeñaSenoidal.xaml.cs">
       <DependentUpon>ConfiguracionSeñaSenoidal.xaml</DependentUpon>
     </Compile>
     <Compile Include="FuncionSigno.cs" />
     <Compile Include="Muestra.cs" />
     <Compile Include="Señal.cs" />
+    <Compile Include="SeñalExponencial.cs" />
     <Compile Include="SeñalParabolica.cs" />
     <Compile Include="SeñalSenoidal.cs" />
+    <Page Include="ConfiguracionExponencial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ConfiguracionSeñaSenoidal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
