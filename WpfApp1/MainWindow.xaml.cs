@@ -50,6 +50,10 @@ namespace WpfApp1
                         double frecuencia = double.Parse(((ConfiguracionSeñaSenoidal)(PanelConfiguracion.Children[0])).txtFrecuencia.Text);
                         señal = new SeñalSenoidal(amplitud,fase, frecuencia);
                             break;
+                        case 2:
+                        double alfa = double.Parse(((ConfiguracionExponencial)(PanelConfiguracion.Children[0])).txtAlfa.Text);
+                        señal = new SeñalExponencial(alfa);
+                            break;
                         default:
                         señal = null;
                             break;
